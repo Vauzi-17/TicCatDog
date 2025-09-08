@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TikTakTo</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://kit.fontawesome.com/6fc9985251.js" crossorigin="anonymous"></script>
+  <script src="./leaderboard.js" defer></script>
+  <link rel="stylesheet" href="music.css"/>
+</head>
+<body>
+
+  <div class="background-image">
+    <img src="ma.png" alt="">
+  </div>
+
+  <div id="dialogNama" class="bg-black/[var(--bg-opacity)] [--bg-opacity:60%] z-4 fixed top-0 left-0 w-full h-full flex items-center justify-center">
+    <div class="border-slate-500 border rounded-lg shadow-lg p-5 grid bg-slate-800 gap-5">
+      <p>Isi namamu terlebih dahulu</p>
+      <input class="p-2 border-slate-600 border" type="text" name="" id="nama" placeholder="Pemain 1">
+      <input class="p-2 border-slate-600 border" type="text" name="" id="" placeholder="Pemain 2">
+      <button class="bg-slate-600" onclick="simpanNama()">Simpan</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2">
+    <div class="app">
+      <span>User: </span><span id="user"></span>
+      <h1 class="title">Ega VS Pandu
+      </h1>
+      <div class="controls">
+        <label class="mode">
+          Mode:
+          <select id="mode">
+            <option value="pvp">2 Pemain</option>
+            <option value="ai">Lawan Komputer</option>
+          </select>
+        </label>
+        <label class="marker">
+          Kamu:
+          <select id="humanMarker">
+            <option value="🐱">🐱</option>
+            <option value="🐶">🐶</option>
+          </select>
+        </label>
+        <button id="restart" class="btn">Restart</button>
+      </div>
+      <div id="status" class="status">Giliran: <span id="turn">X</span></div>
+      <div id="board" class="board" role="grid" aria-label="Papan TicTacToe">
+        <!-- 9 sel -->
+        <button class="cell" data-index="0" aria-label="sel 1" role="gridcell"></button>
+        <button class="cell" data-index="1" aria-label="sel 2" role="gridcell"></button>
+        <button class="cell" data-index="2" aria-label="sel 3" role="gridcell"></button>
+        <button class="cell" data-index="3" aria-label="sel 4" role="gridcell"></button>
+        <button class="cell" data-index="4" aria-label="sel 5" role="gridcell"></button>
+        <button class="cell" data-index="5" aria-label="sel 6" role="gridcell"></button>
+        <button class="cell" data-index="6" aria-label="sel 7" role="gridcell"></button>
+        <button class="cell" data-index="7" aria-label="sel 8" role="gridcell"></button>
+        <button class="cell" data-index="8" aria-label="sel 9" role="gridcell"></button>
+      </div>
+      <footer class="footer">
+       ✨ — selamat bermain!
+      </footer>
+    </div>
+    <div class="app w-full">
+      <h1 class="title">Leaderboard</h1>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+
+   <!-- Tombol trigger floating -->
+  <button id="togglePlayer" class="floating-btn">
+    <i class="fa-solid fa-music"></i>
+  </button>
+
+  <!-- Floating Music Player -->
+  <div class="player-container" id="playerContainer">
+    <div class="player">
+      <div class="player-header">
+        <h2 id="title">Lagu 1</h2>
+        <button id="minimize"><i class="fa-solid fa-chevron-up"></i></button>
+      </div>
+
+      <audio id="audio"></audio>
+
+      <div class="controls">
+        <button id="prev"><i class="fa-solid fa-backward"></i></button>
+        <button id="play"><i class="fa-solid fa-play"></i></button>
+        <button id="next"><i class="fa-solid fa-forward"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="music.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

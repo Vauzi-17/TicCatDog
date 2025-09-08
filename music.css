@@ -1,0 +1,83 @@
+
+
+/* Tombol trigger */
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #1e1e1e;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  font-size: 22px;
+  cursor: pointer;
+  background-color: darkblue;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.floating-btn:hover {
+  background: #333;
+}
+
+/* Container player */
+.player-container {
+  position: fixed;
+  top: -100%; /* tersembunyi di atas */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: top 0.5s ease;
+  z-index: 999;
+}
+
+.player-container.show {
+  top: 0; /* slide turun */
+}
+
+.player {
+  background: #171f31;
+  padding: 20px;
+  border-radius: 0 0 15px 15px;
+  text-align: center;
+  width: 300px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+#play, #prev, #next{
+  background-color: darkblue;
+}
+
+/* Header player */
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Controls */
+.controls button {
+  margin: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.controls button:hover {
+  background: #555;
+}
