@@ -6,8 +6,8 @@ const restartBtn = document.getElementById('restart');
 const modeSel = document.getElementById('mode');
 const humanMarkerSel = document.getElementById('humanMarker');
 
-let x = '🐶';
-let o = '😹';
+let x = '🐶'
+let o = '😹'
 
 let board = Array(9).fill('');
 let current = x;
@@ -18,31 +18,6 @@ const LINES = [
   [0,3,6],[1,4,7],[2,5,8], // kolom
   [0,4,8],[2,4,6]          // diagonal
 ];
-
-// 🟢 simpan nama pemain
-function simpanNama() {
-  let player1 = document.getElementById('player1');
-  let player2 = document.getElementById('player2');
-  let dialog = document.getElementById('dialogNama');
-  let user1 = document.getElementById('user1');
-  let user2 = document.getElementById('user2');
-
-  let x1 = player1.value.trim();
-  let x2 = player2.value.trim();
-
-  if (x1 === "" || x2 === "") {
-    alert("Isi dulu namanya");
-    return false;
-  }
-
-  localStorage.setItem("player1", x1);
-  localStorage.setItem("player2", x2);
-
-  dialog.classList.add("hidden");
-
-  user1.innerHTML = x1;
-  user2.innerHTML = x2;
-}
 
 function setStatus(text){
   statusEl.innerHTML = text;
@@ -75,25 +50,23 @@ function render(){
     setStatus(`Menang: ${w.player}`);
     gameOver = true;
 
-    // 🔥 overlay + teks pemenang
+    // 🔥 Tambahkan animasi petir + teks pemenang
     const overlay = document.getElementById('winnerOverlay');
     const winnerText = overlay.querySelector('.winnerText');
-    const playerName = w.player === x 
-      ? localStorage.getItem("player1") 
-      : localStorage.getItem("player2");
-
-    winnerText.innerHTML = `🎉 Selamat <b>${playerName}</b> Menang! 
-      <span class="winnerIcon">${w.player}</span>`;
-
+    if(w.player === x){
+      var player1 = localStorage.getItem("player1")
+      winnerText.textContent = `🎉 Selamat ${player1} Menang! 🐶`;
+    } else {
+      var player2 = localStorage.getItem("player2")
+      winnerText.textContent = `🎉 Selamat ${player2} Menang! 🐶`;
+    }
     overlay.classList.add("show");
 
     const thunder = document.getElementById("thunderSound");
     thunder.currentTime = 0;
     thunder.play();
 
-    // ✅ panggil leaderboard.js
-    updateLeaderboard(playerName);
-
+    // otomatis hilang setelah 3 detik
     setTimeout(()=> overlay.classList.remove("show"), 3000);
     return;
   }
@@ -107,9 +80,11 @@ function render(){
   document.getElementById('turn').textContent = current;
 }
 
+
 function reset(){
   board = Array(9).fill('');
   gameOver = false;
+  // Saat mode AI + human pilih O, AI jalan dulu
   current = x;
   render();
   const isAI = modeSel.value === 'ai';
@@ -129,6 +104,7 @@ function playAt(i){
     const humanMarker = humanMarkerSel.value;
     const aiMarker = humanMarker === x ? o : x;
     if(current === aiMarker){
+      // beri sedikit delay agar terasa natural
       setTimeout(aiMove, 120);
     }
   }
@@ -139,6 +115,7 @@ function aiMove(){
   const humanMarker = humanMarkerSel.value;
   const aiMarker = humanMarker === x ? o : x;
 
+  // Minimax
   const move = bestMove(board, aiMarker, humanMarker);
   if(move !== null){
     board[move] = aiMarker;
@@ -148,16 +125,19 @@ function aiMove(){
 }
 
 function bestMove(b, ai, human){
+  // Cek langkah menang langsung
   for(const i of emptyIndices(b)){
     const tmp = b.slice();
     tmp[i] = ai;
     if(winnerOf(tmp)?.player === ai) return i;
   }
+  // Cegah lawan menang
   for(const i of emptyIndices(b)){
     const tmp = b.slice();
     tmp[i] = human;
     if(winnerOf(tmp)?.player === human) return i;
   }
+  // Minimax penuh
   let bestScore = -Infinity, bestIndex = null;
   for(const i of emptyIndices(b)){
     const tmp = b.slice();
@@ -186,7 +166,7 @@ function minimax(b, isMax, ai, human){
       tmp[i] = ai;
       best = Math.max(best, minimax(tmp, false, ai, human));
     }
-    return best - 1;
+    return best - 1; // sedikit prefer cepat menang
   }else{
     let best = Infinity;
     for(const i of emptyIndices(b)){
@@ -194,7 +174,7 @@ function minimax(b, isMax, ai, human){
       tmp[i] = human;
       best = Math.min(best, minimax(tmp, true, ai, human));
     }
-    return best + 1;
+    return best + 1; // sedikit hindari cepat kalah
   }
 }
 
@@ -202,7 +182,10 @@ function minimax(b, isMax, ai, human){
 cells.forEach(cell=>{
   cell.addEventListener('click', ()=> playAt(Number(cell.dataset.index)));
 });
+
 restartBtn.addEventListener('click', reset);
+
+// Ubah mode / marker -> reset game
 modeSel.addEventListener('change', reset);
 humanMarkerSel.addEventListener('change', reset);
 

@@ -34,7 +34,7 @@
 }
 
 .player-container.show {
-  top: 0; /* slide turun */
+  top: 50px; /* slide turun */
 }
 
 .player {

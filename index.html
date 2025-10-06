@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TikTakTo</title>
+  <title>KittenDog</title>
   <link rel="stylesheet" href="style.css"/>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://kit.fontawesome.com/6fc9985251.js" crossorigin="anonymous"></script>
   <script src="./leaderboard.js" defer></script>
   <link rel="stylesheet" href="music.css"/>
+  <link rel="stylesheet" href="won.css">
 </head>
 <body>
+  <audio id="thunderSound" src="Musik/Media/petir.mp3" preload="auto"></audio>
+
+
+  <div id="winnerOverlay" class="overlay">
+  <div class="lightning">⚡⚡⚡</div>
+  <div class="winnerText">Player 1 Menang!</div>
+</div>
+
 
   <div class="background-image">
     <img src="ma.png" alt="">
@@ -19,16 +28,19 @@
   <div id="dialogNama" class="bg-black/[var(--bg-opacity)] [--bg-opacity:60%] z-4 fixed top-0 left-0 w-full h-full flex items-center justify-center">
     <div class="border-slate-500 border rounded-lg shadow-lg p-5 grid bg-slate-800 gap-5">
       <p>Isi namamu terlebih dahulu</p>
-      <input class="p-2 border-slate-600 border" type="text" name="" id="nama" placeholder="Pemain 1">
-      <input class="p-2 border-slate-600 border" type="text" name="" id="" placeholder="Pemain 2">
+      <input class="p-2 border-slate-600 border" type="text" name="" id="player1" placeholder="Pemain 1">
+      <input class="p-2 border-slate-600 border" type="text" name="" id="player2" placeholder="Pemain 2">
       <button class="bg-slate-600" onclick="simpanNama()">Simpan</button>
     </div>
   </div>
 
-  <div class="grid grid-cols-2">
-    <div class="app">
-      <span>User: </span><span id="user"></span>
-      <h1 class="title">Ega VS Pandu
+  <div class="grid grid-cols-1 xl:grid-cols-2">
+    <div class="app w-full h-[calc(100vh-4rem)]">
+      <div class="grid">
+        <span>Player 1: <span id="user1"></span></span>
+        <span>Player 2: <span id="user2"></span></span>
+      </div>
+      <h1 class="title">KittenDog
       </h1>
       <div class="controls">
         <label class="mode">
@@ -48,28 +60,31 @@
         <button id="restart" class="btn">Restart</button>
       </div>
       <div id="status" class="status">Giliran: <span id="turn">X</span></div>
-      <div id="board" class="board" role="grid" aria-label="Papan TicTacToe">
-        <!-- 9 sel -->
-        <button class="cell" data-index="0" aria-label="sel 1" role="gridcell"></button>
-        <button class="cell" data-index="1" aria-label="sel 2" role="gridcell"></button>
-        <button class="cell" data-index="2" aria-label="sel 3" role="gridcell"></button>
-        <button class="cell" data-index="3" aria-label="sel 4" role="gridcell"></button>
-        <button class="cell" data-index="4" aria-label="sel 5" role="gridcell"></button>
-        <button class="cell" data-index="5" aria-label="sel 6" role="gridcell"></button>
-        <button class="cell" data-index="6" aria-label="sel 7" role="gridcell"></button>
-        <button class="cell" data-index="7" aria-label="sel 8" role="gridcell"></button>
-        <button class="cell" data-index="8" aria-label="sel 9" role="gridcell"></button>
+      <div class="flex justify-center h-[calc(100vh-4rem)]">
+        <div id="board" class="grid grid-cols-3 aspect-square h-[48vh] max-h-[48vh] w-full max-w-[80vh]" role="grid" aria-label="Papan TicTacToe">
+          <!-- 9 sel -->
+          <button class="cell aspect-square bg-gray-200" data-index="0" aria-label="sel 1" role="gridcell"></button>
+          <button class="cell" data-index="1" aria-label="sel 2" role="gridcell"></button>
+          <button class="cell" data-index="2" aria-label="sel 3" role="gridcell"></button>
+          <button class="cell" data-index="3" aria-label="sel 4" role="gridcell"></button>
+          <button class="cell" data-index="4" aria-label="sel 5" role="gridcell"></button>
+          <button class="cell" data-index="5" aria-label="sel 6" role="gridcell"></button>
+          <button class="cell" data-index="6" aria-label="sel 7" role="gridcell"></button>
+          <button class="cell" data-index="7" aria-label="sel 8" role="gridcell"></button>
+          <button class="cell" data-index="8" aria-label="sel 9" role="gridcell"></button>
+        </div>
       </div>
       <footer class="footer">
        ✨ — selamat bermain!
       </footer>
     </div>
-    <div class="app w-full">
-      <h1 class="title">Leaderboard</h1>
-      <div>
-        
-      </div>
-    </div>
+<div class="app w-full h-[calc(100vh-4rem)]">
+  <h1 class="title">Leaderboard</h1>
+  <ul id="leaderboard"></ul>
+  <button onclick="resetLeaderboard()">Reset Leaderboard</button>
+</div>
+
+
   </div>
 
    <!-- Tombol trigger floating -->

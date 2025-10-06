@@ -10,17 +10,17 @@ const minimizeBtn = document.getElementById("minimize");
 
 // List 5 lagu
 const songs = [
-  "Musik/Media/babi.mp3",
-  "Musik/Media/.mp3",
-  "Musik/Media/.mp3",
+  "Musik/Media/Street.mp3",
+  "Musik/Media/Sonix.mp3",
+  "Musik/Media/Spongebob.mp3",
   "Media/lagu4.mp3",
   "Media/lagu5.mp3"
 ];
 
 const titles = [
-  "Lagu 1 - ASINGBABUI",
-  "Lagu 2 - kucing",
-  "Lagu 3 - Crash",
+  "Lagu 1 - Street",
+  "Lagu 2 - Sonix",
+  "Lagu 3 - Spongebob",
   "Lagu 4",
   "Lagu 5"
 ];
