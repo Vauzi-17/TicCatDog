@@ -71,8 +71,7 @@ The design prioritizes intentional minimalism over AI-generated aesthetics:
 tiktakto/
 ├── index.html          # Main HTML structure
 ├── styles.css          # All styling and animations
-├── game.js             # Game logic and AI algorithm
-└── README.md           # Documentation
+└── game.js             # Game logic and AI algorithm
 ```
 
 ## Browser Support
